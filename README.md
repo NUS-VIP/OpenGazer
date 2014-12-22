@@ -2,18 +2,18 @@ OpenGazer
 =================
 
 
-<strong>Requirements</strong>:
-  vxl >= 1.5.1	        http://vxl.sourceforge.net/
-  opencv >= 0.9.7	http://sourceforge.net/projects/opencvlibrary
-  gtkmm-2.4 >= 2.8.0	http://www.gtkmm.org/
-  cairomm-1.0 >= 0.6.0  http://cairographics.org/cairomm/
-  boost >= 1.32.0	http://www.boost.org/
-  An off-the-shelf webcam
+<strong>Requirements</strong>:<br>
+  vxl >= 1.5.1	        http://vxl.sourceforge.net/<br>
+  opencv >= 0.9.7	http://sourceforge.net/projects/opencvlibrary<br>
+  gtkmm-2.4 >= 2.8.0	http://www.gtkmm.org/<br>
+  cairomm-1.0 >= 0.6.0  http://cairographics.org/cairomm/<br>
+  boost >= 1.32.0	http://www.boost.org/<br>
+  An off-the-shelf webcam<br>
 	
 Under <strong>Ubuntu1204 LTS</strong> (Must be 1204 version) testing:
 
-Directory Structure:
-.
+Directory Structure:<br>
+.<br>
 ├── opengazer-0.1.2<br>
 ├── vxl-bin<br>
 └── vxl-git<br>
