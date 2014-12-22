@@ -19,7 +19,7 @@ Directory Structure:<br>
 └── vxl-git<br>
 
 Step 1.<br>
-  # apt-get install libcv-dev libhighgui-dev libcvaux-dev libgtkmm-2.4-dev libcairomm-1.0-dev libboost-dev<br>
+  # sudo apt-get install libcv-dev libhighgui-dev libcvaux-dev libgtkmm-2.4-dev libcairomm-1.0-dev libboost-dev<br>
   # sudo apt-get install cmake cmake-curses-gui<br>
 Step 2. <br>
   # git clone git://git.code.sf.net/p/vxl/git vxl-git<br>
