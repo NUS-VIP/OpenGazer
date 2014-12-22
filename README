@@ -1,4 +1,4 @@
-<b>Requirements</b>:
+<strong>Requirements</strong>:
   vxl >= 1.5.1	        http://vxl.sourceforge.net/
   opencv >= 0.9.7	http://sourceforge.net/projects/opencvlibrary
   gtkmm-2.4 >= 2.8.0	http://www.gtkmm.org/
@@ -6,7 +6,7 @@
   boost >= 1.32.0	http://www.boost.org/
   An off-the-shelf webcam
 	
-Under <b>Ubuntu1204 LTS</b> (Must be 1204 version) testing:
+Under <strong>Ubuntu1204 LTS</strong> (Must be 1204 version) testing:
 
 Directory Structure:
 .
@@ -48,7 +48,7 @@ Step 4.
   # make
   # sudo addgroup $USER video
   
-<b>Run</b>
+<strong>Run</strong>
   # ./opengazer
 
 Other files used by opengazer
@@ -60,7 +60,7 @@ Other files used by opengazer
    		   pixels.  This file is saved when the user clicks
    		   "Save points"
    
-<b>References</b>
+<strong>References</strong>
 http://www.mirkules.com/opengazer/opengazer-installation
 http://www.inference.phy.cam.ac.uk/opengazer/README
 https://github.com/opengazer/OpenGazer/issues/1
