@@ -1,6 +1,6 @@
 # required libraries: vxl, opencv, boost, gtkmm
 
-VXLDIR = /opt
+VXLDIR = /usr/local
 VERSION = opengazer-0.1.2
 CPPFLAGS = -Wall -g -O3
 LINKER = -L$(VXLDIR)/lib -L/usr/local/lib -lm -ldl -lvnl -lmvl -lvnl_algo -lvgl -lgthread-2.0 
@@ -21,10 +21,12 @@ objects = $(patsubst %.cpp,%.o,$(sources))
 	g++ -MM $< > $@
 
 %.o: %.cpp 
-	g++ -c $(CPPFLAGS) -o $@ `pkg-config cairomm-1.0 opencv gtkmm-2.4 --cflags` $(INCLUDES) $< 
+	g++ -c -o $@ $(INCLUDES) $< `pkg-config cairomm-1.0 opencv gtkmm-2.4 --cflags` $(CPPFLAGS)
+	#g++ -c $(CPPFLAGS) -o $@ `pkg-config cairomm-1.0 opencv gtkmm-2.4 --cflags` $(INCLUDES) $< 
 
 opengazer: 	$(objects)
-	g++ $(CPPFLAGS) -o $@ `pkg-config cairomm-1.0 opencv gtkmm-2.4 --libs`  $(LINKER) $^
+	g++ -o $@ $^ `pkg-config cairomm-1.0 opencv gtkmm-2.4 --libs`  $(LINKER) $(CPPFLAGS)
+	#g++ $(CPPFLAGS) -o $@ `pkg-config cairomm-1.0 opencv gtkmm-2.4 --libs`  $(LINKER) $^
 
 include $(patsubst %.cpp,%.o.depends,$(sources))
 
