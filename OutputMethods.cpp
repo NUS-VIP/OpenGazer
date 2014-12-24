@@ -45,17 +45,20 @@ void StreamStore::store(const TrackerOutput& output) {
 }
 
 SocketStore::SocketStore(int port) {
-    mysocket = socket(PF_INET, SOCK_DGRAM, 0);
-	
+    mysocket = socket(AF_INET, SOCK_STREAM, 0);
+    
     destaddr.sin_family = AF_INET;
     destaddr.sin_port = htons(port);
     destaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    if (connect(mysocket,(struct sockaddr *) &destaddr,sizeof(destaddr)) < 0) {
+         cerr << "can not connect to socket server";
+    }
 }
 
 void SocketStore::store(const TrackerOutput& output) {
     ostringstream stream;
-    stream << "x " << (int) output.gazepoint.x << endl
-	   << "y " << (int) output.gazepoint.y << endl;
+    stream << (int) output.gazepoint.x << "," << (int) output.gazepoint.y << ";";
     string str = stream.str();
     sendto(mysocket, str.c_str(), str.size(), 0, 
 	   (sockaddr*)&destaddr, sizeof(destaddr));
