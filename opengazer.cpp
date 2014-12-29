@@ -17,6 +17,6 @@ int main(int argc, char **argv)
     helloworld.show();
 
     Gtk::Main::run(helloworld);
-    
+
     return 0;
 }

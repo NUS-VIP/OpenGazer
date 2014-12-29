@@ -1,5 +1,6 @@
 #include <vnl/algo/vnl_svd.h>
 
+
 template <class T>
 
 T sum(vector<T> const& vector) {
@@ -19,7 +20,7 @@ Vector computeAffineFMatrix(vector<HomPoint> const& points1,
     int n = points1.size();
 
     Vector centroid(4, 0.0);
-    
+
     for(int i=0; i<n; i++) {
 	centroid[0] += points1[i].x();
 	centroid[1] += points1[i].y();
@@ -53,9 +54,9 @@ Vector computeAffineFMatrix(vector<HomPoint> const& points1,
     result.update(v);		// a,b,c,d
     result[4] = inner_product(v, centroid);
 
-    if (result[4] < 0) 
+    if (result[4] < 0)
 	result = -result;
-    
+
 
 
 //     cout << "mat: " << v << endl;

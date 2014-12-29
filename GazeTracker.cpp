@@ -16,11 +16,11 @@ int Targets::getCurrentTarget(Point point) {
 
 CalTarget::CalTarget() {}
 
-CalTarget::CalTarget(Point point, 
+CalTarget::CalTarget(Point point,
 		     const IplImage* image, const IplImage* origimage):
-    point(point), 
-    image(cvCloneImage(image), releaseImage), 
-    origimage(cvCloneImage(origimage), releaseImage) 
+    point(point),
+    image(cvCloneImage(image), releaseImage),
+    origimage(cvCloneImage(origimage), releaseImage)
 {
 }
 
@@ -56,7 +56,7 @@ double GazeTracker::imagedistance(const IplImage *im1, const IplImage *im2) {
     return norm*norm;
 }
 
-double GazeTracker::covariancefunction(SharedImage const& im1, 
+double GazeTracker::covariancefunction(SharedImage const& im1,
 				       SharedImage const& im2)
 {
     const double sigma = 1.0;
@@ -67,17 +67,17 @@ double GazeTracker::covariancefunction(SharedImage const& im1,
 void GazeTracker::updateGPs(void) {
     Vector xlabels(caltargets.size());
     Vector ylabels(caltargets.size());
-		
+
     for(int i=0; i<caltargets.size(); i++) {
 	xlabels[i] = caltargets[i].point.x;
 	ylabels[i] = caltargets[i].point.y;
     }
 
-    vector<SharedImage> images = 
+    vector<SharedImage> images =
 	getsubvector(caltargets, &CalTarget::image);
 
     gpx.reset(new ImProcess(images, xlabels, covariancefunction, 0.01));
-    gpy.reset(new ImProcess(images, ylabels, covariancefunction, 0.01));  
+    gpy.reset(new ImProcess(images, ylabels, covariancefunction, 0.01));
     targets.reset(new Targets(getsubvector(caltargets, &CalTarget::point)));
 }
 
@@ -86,16 +86,16 @@ void GazeTracker::clear() {
     // updateGPs()
 }
 
-void GazeTracker::addExemplar(Point point, 
-			      const IplImage *eyefloat, 
-			      const IplImage *eyegrey) 
+void GazeTracker::addExemplar(Point point,
+			      const IplImage *eyefloat,
+			      const IplImage *eyegrey)
 {
     caltargets.push_back(CalTarget(point, eyefloat, eyegrey));
     updateGPs();
 }
 
-// void GazeTracker::updateExemplar(int id, 
-// 				 const IplImage *eyefloat, 
+// void GazeTracker::updateExemplar(int id,
+// 				 const IplImage *eyefloat,
 // 				 const IplImage *eyegrey)
 // {
 //     cvConvertScale(eyegrey, caltargets[id].origimage.get());
@@ -107,7 +107,7 @@ void GazeTracker::addExemplar(Point point,
 void GazeTracker::draw(IplImage *destimage, int eyedx, int eyedy) {
 //     for(int i=0; i<caltargets.size(); i++) {
 // 	Point p = caltargets[i].point;
-// 	cvSetImageROI(destimage, cvRect((int)p.x - eyedx, (int)p.y - eyedy, 
+// 	cvSetImageROI(destimage, cvRect((int)p.x - eyedx, (int)p.y - eyedy,
 // 					2*eyedx, 2*eyedy));
 // 	cvCvtColor(caltargets[i].origimage, destimage, CV_GRAY2RGB);
 // 	cvRectangle(destimage, cvPoint(0,0), cvPoint(2*eyedx-1,2*eyedy-1),
@@ -117,7 +117,7 @@ void GazeTracker::draw(IplImage *destimage, int eyedx, int eyedy) {
 }
 
 void GazeTracker::save(void) {
-    CvFileStorage *out = 
+    CvFileStorage *out =
 	cvOpenFileStorage("calibration.xml", NULL, CV_STORAGE_WRITE);
     save(out, "GazeTracker");
     cvReleaseFileStorage(&out);
@@ -131,7 +131,7 @@ void GazeTracker::save(CvFileStorage *out, const char *name) {
 
 
 void GazeTracker::load(void) {
-    CvFileStorage *in = 
+    CvFileStorage *in =
 	cvOpenFileStorage("calibration.xml", NULL, CV_STORAGE_READ);
     CvFileNode *root = cvGetRootFileNode(in);
     load(in, cvGetFileNodeByName(in, root, "GazeTracker"));
@@ -140,7 +140,7 @@ void GazeTracker::load(void) {
 }
 
 void GazeTracker::load(CvFileStorage *in, CvFileNode *node) {
-    caltargets = loadvector<CalTarget>(in, cvGetFileNodeByName(in, node, 
+    caltargets = loadvector<CalTarget>(in, cvGetFileNodeByName(in, node,
 							       "caltargets"));
 }
 
@@ -148,7 +148,7 @@ static void ignore(const IplImage *) {}
 
 void GazeTracker::update(const IplImage *image) {
     if (isActive()) {
-	output.gazepoint = Point(gpx->getmean(SharedImage(image, &ignore)), 
+	output.gazepoint = Point(gpx->getmean(SharedImage(image, &ignore)),
 				 gpy->getmean(SharedImage(image, &ignore)));
 	output.targetid = getTargetId(output.gazepoint);
 	output.target = getTarget(output.targetid);

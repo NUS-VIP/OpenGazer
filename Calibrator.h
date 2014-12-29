@@ -7,10 +7,12 @@
 #include "GraphicalPointer.h"
 #include "FeatureDetector.h"
 
+const int duration = 40;
+
 class FrameProcessing;
 
-class FrameFunction: 
-public Containee<FrameProcessing, FrameFunction> 
+class FrameFunction:
+public Containee<FrameProcessing, FrameFunction>
 {
     const int &frameno;
     int startframe;
@@ -22,16 +24,16 @@ public:
     virtual ~FrameFunction();
 };
 
-class FrameProcessing: 
+class FrameProcessing:
 public ProcessContainer<FrameProcessing,FrameFunction> {};
 
 class MovingTarget: public FrameFunction {
     shared_ptr<WindowPointer> pointer;
  public:
-    MovingTarget(const int &frameno, 
-		 const vector<Point>& points, 
+    MovingTarget(const int &frameno,
+		 const vector<Point>& points,
 		 const shared_ptr<WindowPointer> &pointer,
-		 int dwelltime=20);
+		 int dwelltime=duration);
     virtual ~MovingTarget();
     virtual void process();
  protected:
@@ -49,11 +51,11 @@ class Calibrator: public MovingTarget {
 public:
     static vector<Point> defaultpoints;
     static vector<Point> loadpoints(istream& in);
-    Calibrator(const int &frameno, 
-	       const shared_ptr<TrackingSystem> &trackingsystem, 
-	       const vector<Point>& points, 
+    Calibrator(const int &frameno,
+	       const shared_ptr<TrackingSystem> &trackingsystem,
+	       const vector<Point>& points,
 	       const shared_ptr<WindowPointer> &pointer,
-	       int dwelltime=20);
+	       int dwelltime=duration);
     virtual ~Calibrator();
     virtual void process();
     static vector<Point> scaled(const vector<Point>& points, double x, double y);

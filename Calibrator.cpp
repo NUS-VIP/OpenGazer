@@ -1,4 +1,6 @@
 #include "Calibrator.h"
+#include <fstream>
+#include "Global.h"
 
 Calibrator::~Calibrator() {
 #ifdef DEBUG
@@ -12,13 +14,13 @@ FrameFunction::~FrameFunction() {
 #endif
 }
 
-MovingTarget::MovingTarget(const int &frameno, 
-			   const vector<Point>& points, 
+MovingTarget::MovingTarget(const int &frameno,
+			   const vector<Point>& points,
 			   const shared_ptr<WindowPointer> &pointer,
 			   int dwelltime):
-    FrameFunction(frameno), 
+    FrameFunction(frameno),
     points(points), dwelltime(dwelltime), pointer(pointer)
-{    
+{
 };
 
 MovingTarget::~MovingTarget() {
@@ -28,8 +30,21 @@ MovingTarget::~MovingTarget() {
 void MovingTarget::process() {
     if (active()) {
 	int id = getPointNo();
-	if (getPointFrame() == 1) 
-	    pointer->setPosition((int)points[id].x, (int)points[id].y);	
+	if (getPointFrame() == 1)
+	    pointer->setPosition((int)points[id].x, (int)points[id].y);
+
+	    cout<< points[id].x << "," <<points[id].y<<"\n";
+
+// wirte to a file
+    if(isTesting)
+{
+    char fixedpoint [50];
+    sprintf (fixedpoint, "%.2lf  %.2lf \n",points[id].x,points[id].y);
+    ofstream myfile;
+    myfile.open ("target.txt",fstream::app);
+    myfile << fixedpoint;
+    myfile.close();
+}
     }
     else
 	detach();
@@ -47,11 +62,11 @@ int MovingTarget::getPointFrame() {
     return getFrame() % dwelltime;
 }
 
-Calibrator::Calibrator(const int &framecount, 
+Calibrator::Calibrator(const int &framecount,
 		       const shared_ptr<TrackingSystem> &trackingsystem,
-		       const vector<Point>& points, 
+		       const vector<Point>& points,
 		       const shared_ptr<WindowPointer> &pointer,
-		       int dwelltime): 
+		       int dwelltime):
     MovingTarget(framecount, points, pointer, dwelltime),
     trackingsystem(trackingsystem)
 {
@@ -79,18 +94,18 @@ void Calibrator::process() {
     MovingTarget::process();
 }
 
-const Point Calibrator::defaultpointarr[] = {Point(0.5, 0.5), 
+const Point Calibrator::defaultpointarr[] = {Point(0.5, 0.5),
 					     Point(0.1, 0.5), Point(0.9, 0.5),
-					     Point(0.5, 0.1), Point(0.5, 0.9), 
-					     Point(0.1, 0.1), Point(0.1, 0.9), 
-					     Point(0.9, 0.9), Point(0.9, 0.1), 
-					     Point(0.3, 0.3), Point(0.3, 0.7), 
+					     Point(0.5, 0.1), Point(0.5, 0.9),
+					     Point(0.1, 0.1), Point(0.1, 0.9),
+					     Point(0.9, 0.9), Point(0.9, 0.1),
+					     Point(0.3, 0.3), Point(0.3, 0.7),
 					     Point(0.7, 0.7), Point(0.7, 0.3)};
 
-vector<Point> 
-Calibrator::defaultpoints(Calibrator::defaultpointarr, 
+vector<Point>
+Calibrator::defaultpoints(Calibrator::defaultpointarr,
 			  Calibrator::defaultpointarr+
-			  (sizeof(Calibrator::defaultpointarr) / 
+			  (sizeof(Calibrator::defaultpointarr) /
 			   sizeof(Calibrator::defaultpointarr[0])));
 
 vector<Point> Calibrator::loadpoints(istream& in) {
@@ -107,7 +122,7 @@ vector<Point> Calibrator::loadpoints(istream& in) {
 }
 
 vector<Point> Calibrator::scaled(const vector<Point> &points,
-				      double x, double y) 
+				      double x, double y)
 {
 //     double dx = x > y ? (x-y)/2 : 0.0;
 //     double dy = y > x ? (y-x)/2 : 0.0;

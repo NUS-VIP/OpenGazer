@@ -8,6 +8,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <fstream>
+#include "Global.h"
 
 AbstractStore::~AbstractStore() {
 }
@@ -30,7 +32,7 @@ MmapStore::~MmapStore() {
     munmap(positiontable, getpagesize());
     close(fd);
 }
- 
+
 StreamStore::StreamStore(ostream &stream): stream(stream) {
 }
 
@@ -38,15 +40,33 @@ StreamStore::~StreamStore() {
 }
 
 void StreamStore::store(const TrackerOutput& output) {
-    stream << (int) output.gazepoint.x << " " 
+    stream << (int) output.gazepoint.x << " "
 	   << (int) output.gazepoint.y << " -> "
 	   << output.targetid << endl;
+
+ /*   char testing [50];
+    sprintf (testing, "%s\n", isTesting?"true":"false");
+    ofstream myfile;
+    myfile.open ("isTesting.txt",fstream::app);
+    myfile << testing;
+    myfile.close();*/
+
+// wirte to a file
+    if(isTesting)
+{
+    char buffer [50];
+    sprintf (buffer, "%.2lf  %.2lf         ",output.gazepoint.x,output.gazepoint.y);
+    ofstream myfile;
+    myfile.open ("target.txt",fstream::app);
+    myfile << buffer;
+    myfile.close();
+}
     stream.flush();
 }
 
 SocketStore::SocketStore(int port) {
     mysocket = socket(PF_INET, SOCK_DGRAM, 0);
-	
+
     destaddr.sin_family = AF_INET;
     destaddr.sin_port = htons(port);
     destaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -57,7 +77,7 @@ void SocketStore::store(const TrackerOutput& output) {
     stream << "x " << (int) output.gazepoint.x << endl
 	   << "y " << (int) output.gazepoint.y << endl;
     string str = stream.str();
-    sendto(mysocket, str.c_str(), str.size(), 0, 
+    sendto(mysocket, str.c_str(), str.size(), 0,
 	   (sockaddr*)&destaddr, sizeof(destaddr));
 }
 

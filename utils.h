@@ -4,6 +4,7 @@
 #include <math.h>
 #include <vector>
 #include <iostream>
+//#include <vnl/vnl_complex_traits.h>
 #include <vnl/algo/vnl_svd.h>
 #include <gdkmm.h>
 #include <boost/shared_ptr.hpp>
@@ -32,7 +33,7 @@ inline T square(T a) {
     return a * a;
 }
 
-template <class T> 
+template <class T>
 ostream& operator<< (ostream& out, vector<T> const& vec) {
     out << vec.size() << endl;
     xforeach(iter, vec)
@@ -66,7 +67,7 @@ T teefunction(T source, char* prefix, char *postfix="\n") {
 template <class T>
 void savevector(CvFileStorage *out, const char* name, vector<T>& vec) {
     cvStartWriteStruct(out, name, CV_NODE_SEQ);
-    for(int i=0; i<vec.size(); i++) 
+    for(int i=0; i<vec.size(); i++)
 	vec[i].save(out);
     cvEndWriteStruct(out);
 }
@@ -80,7 +81,7 @@ vector<T> loadvector(CvFileStorage *in, CvFileNode *node) {
     for(int i=0; i<seq->total; i++) {
 	CvFileNode *item = (CvFileNode*) reader.ptr;
 	result[i].load(in, item);
-	CV_NEXT_SEQ_ELEM(seq->elem_size, reader);       
+	CV_NEXT_SEQ_ELEM(seq->elem_size, reader);
     }
     return result;
 }
@@ -103,10 +104,10 @@ void convert(const vector<From> &from, vector<To> &to) {
 
 class ConstancyDetector {
     int value;
-    int counter; 
+    int counter;
     int maxcounter;
 public:
-    ConstancyDetector(int maxcounter) : 
+    ConstancyDetector(int maxcounter) :
 	value(-1), counter(0), maxcounter(maxcounter) {}
 
     bool isStable(void) {
@@ -118,7 +119,7 @@ public:
     }
 
     bool observe(int newvalue) {
-	if (newvalue != value || newvalue < 0) 
+	if (newvalue != value || newvalue < 0)
 	    counter = 0;
 	else
 	    counter++;
@@ -135,7 +136,7 @@ public:
 // #define output(X) { cout << #X " = " << X << endl; }
 
 
-template <class T> 
+template <class T>
 int maxabsindex(T const& vec, int size) {
     int maxindex = 0;
     for(int i=0; i<size; i++)
