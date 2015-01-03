@@ -102,19 +102,25 @@ void Calibrator::process() {
 					     Point(0.3, 0.3), Point(0.3, 0.7),
 					     Point(0.7, 0.7), Point(0.7, 0.3)};
 */
-const Point Calibrator::defaultpointarr[] = {Point(0.1, 0.1),
-					     Point(0.1, 0.3), Point(0.1, 0.5),
-					     Point(0.1, 0.7), Point(0.1, 0.9),
-					     Point(0.3, 0.1), Point(0.3, 0.3),
-					     Point(0.3, 0.5), Point(0.3, 0.7),
-					     Point(0.3, 0.9), Point(0.5, 0.1),
-					     Point(0.5, 0.3), Point(0.5, 0.5),
-					     Point(0.5, 0.7), Point(0.5, 0.9),
-					     Point(0.7, 0.1), Point(0.7, 0.3),
-					     Point(0.7, 0.5), Point(0.7, 0.7),
-					     Point(0.7, 0.9), Point(0.9, 0.1),
-					     Point(0.9, 0.3), Point(0.9, 0.5),
-					     Point(0.9, 0.7), Point(0.9, 0.9)};
+const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),
+					     Point(0.0, 0.2), Point(0.0, 0.4),
+					     Point(0.0, 0.6), Point(0.0, 0.8),
+					     Point(0.0, 1.0), Point(0.2, 0.0),
+					     Point(0.2, 0.2), Point(0.2, 0.4),
+					     Point(0.2, 0.6), Point(0.2, 0.8),
+					     Point(0.2, 1.0), Point(0.4, 0.0),
+					     Point(0.4, 0.2), Point(0.4, 0.4),
+					     Point(0.4, 0.6), Point(0.4, 0.8),
+					     Point(0.4, 1.0), Point(0.6, 0.0),
+					     Point(0.6, 0.2), Point(0.6, 0.4),
+					     Point(0.6, 0.6), Point(0.6, 0.8),
+					     Point(0.6, 1.0), Point(0.8, 0.0),
+					     Point(0.8, 0.2), Point(0.8, 0.4),
+					     Point(0.8, 0.6), Point(0.8, 0.8),
+					     Point(0.8, 1.0), Point(1.0, 0.0),
+					     Point(1.0, 0.2), Point(1.0, 0.4),
+					     Point(1.0, 0.6), Point(1.0, 0.8),
+					     Point(1.0,1.0)};
 vector<Point>
 Calibrator::defaultpoints(Calibrator::defaultpointarr,
 			  Calibrator::defaultpointarr+
