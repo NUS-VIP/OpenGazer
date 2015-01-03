@@ -94,14 +94,27 @@ void Calibrator::process() {
     MovingTarget::process();
 }
 
-const Point Calibrator::defaultpointarr[] = {Point(0.5, 0.5),
+/*const Point Calibrator::defaultpointarr[] = {Point(0.5, 0.5),
 					     Point(0.1, 0.5), Point(0.9, 0.5),
 					     Point(0.5, 0.1), Point(0.5, 0.9),
 					     Point(0.1, 0.1), Point(0.1, 0.9),
 					     Point(0.9, 0.9), Point(0.9, 0.1),
 					     Point(0.3, 0.3), Point(0.3, 0.7),
 					     Point(0.7, 0.7), Point(0.7, 0.3)};
-
+*/
+const Point Calibrator::defaultpointarr[] = {Point(0.1, 0.1),
+					     Point(0.1, 0.3), Point(0.1, 0.5),
+					     Point(0.1, 0.7), Point(0.1, 0.9),
+					     Point(0.3, 0.1), Point(0.3, 0.3),
+					     Point(0.3, 0.5), Point(0.3, 0.7),
+					     Point(0.3, 0.9), Point(0.5, 0.1),
+					     Point(0.5, 0.3), Point(0.5, 0.5),
+					     Point(0.5, 0.7), Point(0.5, 0.9),
+					     Point(0.7, 0.1), Point(0.7, 0.3),
+					     Point(0.7, 0.5), Point(0.7, 0.7),
+					     Point(0.7, 0.9), Point(0.9, 0.1),
+					     Point(0.9, 0.3), Point(0.9, 0.5),
+					     Point(0.9, 0.7), Point(0.9, 0.9)};
 vector<Point>
 Calibrator::defaultpoints(Calibrator::defaultpointarr,
 			  Calibrator::defaultpointarr+
