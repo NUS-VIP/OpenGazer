@@ -1,6 +1,8 @@
 #include "Calibrator.h"
 #include <fstream>
 #include "Global.h"
+#include <iostream>
+#include "utils.h"
 
 Calibrator::~Calibrator() {
 #ifdef DEBUG
@@ -89,6 +91,13 @@ void Calibrator::process() {
 	    trackingsystem->gazetracker.
 		addExemplar(points[id], averageeye->getMean().get(),
 			    trackingsystem->eyex.eyegrey.get());
+
+			    //print out eye image in matrix form
+			    cv::Mat Matrix(trackingsystem->eyex.eyegrey.get());
+                ofstream file;
+                file.open("EyeMatrix.txt",fstream::app);
+                file<< Matrix<<endl;
+                file.close();
 	}
     }
     MovingTarget::process();
@@ -105,22 +114,22 @@ void Calibrator::process() {
 const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),
 					     Point(0.0, 0.2), Point(0.0, 0.4),
 					     Point(0.0, 0.6), Point(0.0, 0.8),
-					     Point(0.0, 1.0), Point(0.2, 0.0),
+					     Point(0.0, 0.9), Point(0.2, 0.0),
 					     Point(0.2, 0.2), Point(0.2, 0.4),
 					     Point(0.2, 0.6), Point(0.2, 0.8),
-					     Point(0.2, 1.0), Point(0.4, 0.0),
+					     Point(0.2, 0.9), Point(0.4, 0.0),
 					     Point(0.4, 0.2), Point(0.4, 0.4),
 					     Point(0.4, 0.6), Point(0.4, 0.8),
-					     Point(0.4, 1.0), Point(0.6, 0.0),
+					     Point(0.4, 0.9), Point(0.6, 0.0),
 					     Point(0.6, 0.2), Point(0.6, 0.4),
 					     Point(0.6, 0.6), Point(0.6, 0.8),
-					     Point(0.6, 1.0), Point(0.8, 0.0),
+					     Point(0.6, 0.9), Point(0.8, 0.0),
 					     Point(0.8, 0.2), Point(0.8, 0.4),
 					     Point(0.8, 0.6), Point(0.8, 0.8),
-					     Point(0.8, 1.0), Point(1.0, 0.0),
-					     Point(1.0, 0.2), Point(1.0, 0.4),
-					     Point(1.0, 0.6), Point(1.0, 0.8),
-					     Point(1.0,1.0)};
+					     Point(0.8, 0.9), Point(0.9, 0.0),
+					     Point(0.9, 0.2), Point(0.9, 0.4),
+					     Point(0.9, 0.6), Point(0.9, 0.8),
+					     Point(0.9,0.9)};
 vector<Point>
 Calibrator::defaultpoints(Calibrator::defaultpointarr,
 			  Calibrator::defaultpointarr+
