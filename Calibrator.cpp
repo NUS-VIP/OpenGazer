@@ -3,6 +3,7 @@
 #include "Global.h"
 #include <iostream>
 #include "utils.h"
+//#include "opencv2/imgproc/imgproc.hpp"
 
 Calibrator::~Calibrator() {
 #ifdef DEBUG
@@ -94,6 +95,10 @@ void Calibrator::process() {
 
 			    //print out eye image in matrix form
 			    cv::Mat Matrix(trackingsystem->eyex.eyegrey.get());
+                //cv::Mat Matrixdown;
+                //cv::Mat tmp;
+                //tmp = Matrix;
+			    //pyrDown(tmp,Matrixdown,cv::Size(tmp.cols/2, tmp.rows/2));
                 ofstream file;
                 file.open("EyeMatrix.txt",fstream::app);
                 file<< Matrix<<endl;
@@ -102,7 +107,7 @@ void Calibrator::process() {
     }
     MovingTarget::process();
 }
-
+//13 calibration points
 /*const Point Calibrator::defaultpointarr[] = {Point(0.5, 0.5),
 					     Point(0.1, 0.5), Point(0.9, 0.5),
 					     Point(0.5, 0.1), Point(0.5, 0.9),
@@ -111,7 +116,8 @@ void Calibrator::process() {
 					     Point(0.3, 0.3), Point(0.3, 0.7),
 					     Point(0.7, 0.7), Point(0.7, 0.3)};
 */
-const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),
+//36 calibration points
+/*const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),
 					     Point(0.0, 0.2), Point(0.0, 0.4),
 					     Point(0.0, 0.6), Point(0.0, 0.8),
 					     Point(0.0, 0.9), Point(0.2, 0.0),
@@ -129,6 +135,26 @@ const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),
 					     Point(0.8, 0.9), Point(0.9, 0.0),
 					     Point(0.9, 0.2), Point(0.9, 0.4),
 					     Point(0.9, 0.6), Point(0.9, 0.8),
+					     Point(0.9,0.9)};
+*/
+const Point Calibrator::defaultpointarr[] = {Point(0.0, 0.0),Point(0.0, 0.15),
+					     Point(0.0, 0.3), Point(0.0, 0.45),
+					     Point(0.0, 0.6), Point(0.0, 0.75),
+					     Point(0.0, 0.9), Point(0.15, 0.0),
+					     Point(0.15, 0.15), Point(0.15, 0.3),Point(0.15, 0.45),
+					     Point(0.15, 0.6), Point(0.15, 0.75),
+					     Point(0.15, 0.9), Point(0.3, 0.0),
+					     Point(0.3, 0.15), Point(0.3, 0.3),
+					     Point(0.3, 0.45), Point(0.3, 0.6),
+					     Point(0.3, 0.75),Point(0.3, 0.9),Point(0.6, 0.0),
+					     Point(0.6, 0.15), Point(0.6, 0.3),
+					     Point(0.6, 0.45),Point(0.6, 0.6), Point(0.6, 0.75),
+					     Point(0.6, 0.9), Point(0.75, 0.0),
+					     Point(0.75, 0.15), Point(0.75, 0.3),
+					     Point(0.75, 0.45),Point(0.75, 0.6), Point(0.75, 0.75),
+					     Point(0.75, 0.9), Point(0.9, 0.0),
+					     Point(0.9, 0.15), Point(0.9, 0.3),
+					     Point(0.9, 0.45),Point(0.9, 0.6), Point(0.9, 0.75),
 					     Point(0.9,0.9)};
 vector<Point>
 Calibrator::defaultpoints(Calibrator::defaultpointarr,

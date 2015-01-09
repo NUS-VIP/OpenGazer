@@ -14,7 +14,7 @@ void EyeExtractor::processEye(void) {
 
 
 EyeExtractor::EyeExtractor(const PointTracker &tracker):
-    tracker(tracker),
+    tracker(tracker), 
     eyefloat2(cvCreateImage( eyesize, IPL_DEPTH_32F, 1 )),
     eyegrey(cvCreateImage( eyesize, 8, 1 )),
     eyefloat(cvCreateImage( eyesize, IPL_DEPTH_32F, 1 )),
@@ -22,8 +22,8 @@ EyeExtractor::EyeExtractor(const PointTracker &tracker):
 {
 }
 
-void EyeExtractor::extractEye(const IplImage *origimage)
-    throw (TrackingException)
+void EyeExtractor::extractEye(const IplImage *origimage) 
+    throw (TrackingException) 
 {
     if (!tracker.status[tracker.eyepoint1])
 	throw TrackingException();
@@ -37,10 +37,10 @@ void EyeExtractor::extractEye(const IplImage *origimage)
     double yfactor = 0.20 * (x0 < x1 ? -1 : 1);
     double L = factor / eyedx;
     double LL = x0 < x1? L : -L;
-    float matrix[6] =
-	{LL*(x1-x0), LL*(y0-y1),
+    float matrix[6] = 
+	{LL*(x1-x0), LL*(y0-y1), 
 	 x0 + factor * ((1-xfactor)*(x1-x0) + yfactor * (y0-y1)),
-	 LL*(y1-y0), LL*(x1-x0),
+	 LL*(y1-y0), LL*(x1-x0), 
 	 y0 + factor * ((1-xfactor)*(y1-y0) + yfactor * (x1-x0))};
     CvMat M = cvMat( 2, 3, CV_32F, matrix );
 
