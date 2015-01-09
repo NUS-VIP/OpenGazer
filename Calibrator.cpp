@@ -39,6 +39,16 @@ void MovingTarget::process() {
 	    cout<< points[id].x << "," <<points[id].y<<"\n";
 
 // wirte to a file
+    if(isCalibrating)
+{
+    char fixedpoint [50];
+    sprintf (fixedpoint, "%.2lf  %.2lf \n",points[id].x,points[id].y);
+    ofstream myfile;
+    myfile.open ("CP.txt",fstream::app);
+    myfile << fixedpoint;
+    myfile.close();
+}
+
     if(isTesting)
 {
     char fixedpoint [50];
